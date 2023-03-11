@@ -8,7 +8,7 @@ logs_path = os.path.join(os.getcwd(),'logs', LOG_FILE) # All logs will be create
 os.makedirs(logs_path, exist_ok=True) # Make the directory even if it exists.
 
 LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
-print(LOG_FILE_PATH)
+
 logging.basicConfig(
     filename=LOG_FILE_PATH,
     format="[ %(asctime)s ] %(lineno)s %(name)s - %(levelname)s - %(message)s",
