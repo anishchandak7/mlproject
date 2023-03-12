@@ -22,7 +22,9 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
-
+        '''
+        Read the data from source and Splits in train and test sets.
+        '''
         try:
             logging.info("Data Ingestion Started.")
             
