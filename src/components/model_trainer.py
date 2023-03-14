@@ -20,6 +20,7 @@ warnings.filterwarnings("ignore")
 @dataclass
 class ModelTrainerConfig:
     model_path = os.path.join("artifacts", "model.pkl")
+    evaluation_report_path = os.path.join("artifacts", "Evaluation.xlsx")
 
 class ModelTrainer:
 
@@ -54,12 +55,32 @@ class ModelTrainer:
                         "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                         "AdaBoost Regressor": AdaBoostRegressor()
                     }
-            
-            models_report:dict = evaluate_model(X_train=X_train,X_test=X_test,y_train=y_train,y_test=y_test,models=models)
+
+            params = {
+                "Linear Regression" : {},
+                "Lasso" : {},
+                "Ridge" : {},
+                "Support Vector Regressor" : {},
+                "K-Neighbors Regressor" : {},
+                "Decision Tree" : {'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson']},
+                "Random Forest Regressor" : {'n_estimators': [8,16,32,64,128,256]},
+                "XGBRegressor" : {'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators': [8,16,32,64,128,256]},
+                "CatBoosting Regressor" : {'depth': [6,8,10],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'iterations': [30, 50, 100]},
+                "AdaBoost Regressor" :{'learning_rate':[.1,.01,0.5,.001],
+                    'n_estimators': [8,16,32,64,128,256]}
+            }
+            models_report:dict = evaluate_model(X_train=X_train,X_test=X_test,y_train=y_train,y_test=y_test,models=models, params=params)
 
             models_report_df = pd.DataFrame.from_dict(models_report, orient='index', columns=['Train Score', 'Test Score'])
 
             models_report_df = models_report_df.sort_values("Test Score", ascending=False)
+
+            models_report_df.to_excel(self.model_trainer_config.evaluation_report_path)
+            
+            logging.info("Evaluation Report Prepared and Saved in artifacts folder.")
 
             # To get best model score from dataframe.
             best_model_score = models_report_df.head(1)['Test Score'].values[0]
