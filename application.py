@@ -33,7 +33,7 @@ def predict_datapoint():
 
         results = predict_pipeline.predict(features)
 
-        return render_template('home.html', results=results[0])
+        return render_template('/home.html', results=results[0])
 
 
 if __name__ == '__main__':
