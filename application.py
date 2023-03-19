@@ -9,7 +9,7 @@ app = application
 def index():
     return render_template('index.html')
 
-@app.route('/home.html', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
         # Render same webpage.
