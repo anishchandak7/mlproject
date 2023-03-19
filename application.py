@@ -15,7 +15,7 @@ def home():
         # Render same webpage.
         return render_template('home.html')
     
-    else:
+    elif request.method == 'POST':
         
         data=DataWrapper(
             gender=request.form.get('gender'),
