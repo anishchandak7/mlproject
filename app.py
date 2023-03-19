@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 from src.pipeline.predict_pipeline import PredictPipeline, DataWrapper
-app = Flask(__name__)
 
+application = Flask(__name__)
+
+app = application
 
 @app.route('/', methods=['GET'])
 def index():
