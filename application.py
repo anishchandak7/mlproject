@@ -15,7 +15,7 @@ def predict_datapoint():
         # Render same webpage.
         return render_template('home.html')
     
-    elif request.method == 'POST':
+    else:
         
         data=DataWrapper(
             gender=request.form.get('gender'),
