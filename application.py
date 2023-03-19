@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 from src.pipeline.predict_pipeline import PredictPipeline, DataWrapper
 
 application = Flask(__name__)
@@ -32,9 +32,14 @@ def predict_datapoint():
         predict_pipeline = PredictPipeline()
 
         results = predict_pipeline.predict(features)
+        
+        return redirect(url_for('home', name = results[0]))
 
-        return render_template('home.html', results=results[0])
+#         return render_template('home.html', results=results[0])
 
+@app.route('/predictdata/<name>')
+def home(name):
+    return render_template('home.html', results=name)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
