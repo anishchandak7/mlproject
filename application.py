@@ -9,8 +9,8 @@ app = application
 def index():
     return render_template('index.html')
 
-@app.route('/home', methods=['GET', 'POST'])
-def home():
+@app.route('/home.html', methods=['GET', 'POST'])
+def predict_datapoint():
     if request.method == 'GET':
         # Render same webpage.
         return render_template('home.html')
