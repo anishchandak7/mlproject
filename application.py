@@ -9,7 +9,7 @@ app = application
 def index():
     return render_template('index.html')
 
-@app.route('/home.html', methods=['GET', 'POST'])
+@app.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
         # Render same webpage.
@@ -33,7 +33,7 @@ def predict_datapoint():
 
         results = predict_pipeline.predict(features)
 
-        return render_template('/home.html', results=results[0])
+        return render_template('home.html', results=results[0])
 
 
 if __name__ == '__main__':
